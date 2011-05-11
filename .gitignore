@@ -1,0 +1,9 @@
+.hg
+.hgignore
+*/bin/Debug/ACSR.*
+*/obj/Debug/*
+*/obj/Release/*
+*/bin/Debug/*
+*/obj/x86/*
+*/bin/Debug/*
+*_resharper*
