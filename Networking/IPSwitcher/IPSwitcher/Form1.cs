@@ -20,7 +20,7 @@ namespace IPSwitcher
             _configuration = new BindingList<IPConfiguration>();
 
             _configuration.Clear();
-            foreach (var s in Properties.Settings.Default.ConfigurationStrings)
+            foreach (var s in Properties.Settings.Default.ConfigurationStrings )
             {
                 var cmd = new CmdLineHelper();
                 cmd.ParseString(s);
@@ -33,8 +33,16 @@ namespace IPSwitcher
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Hide();
-            e.Cancel = true;
+            if (!_terminated)
+            {
+
+                Hide();
+                e.Cancel = true;
+            }
+            else
+            {
+                e.Cancel = false;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -67,15 +75,18 @@ namespace IPSwitcher
              if (f.ShowDialog() == DialogResult.OK)
             {
                 _configuration.Add(f.ucConfigEntry1.GetConfigurtaion());
+                UpdateConfiguration();
             }
-             UpdateConfiguration();
+             ;
         }
         void UpdateContextMenu()
         {
-            toolStripComboBoxConfigs.Items.Clear();
+
+            switchToolStripMenuItemSwitchList.DropDownItems.Clear();
             foreach (var config in _configuration)
             {
-                toolStripComboBoxConfigs.Items.Add(config.Name);
+                switchToolStripMenuItemSwitchList.DropDownItems.Add(config.Name);
+                //toolStripComboBoxConfigs.Items.Add(config.Name);
             }
             
         }
@@ -100,8 +111,9 @@ namespace IPSwitcher
                 var i = _configuration.IndexOf(config);
                 _configuration.RemoveAt(i);
                 _configuration.Insert(i, f.ucConfigEntry1.GetConfigurtaion());
+                UpdateConfiguration();
             }
-            UpdateConfiguration();
+            
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -111,17 +123,33 @@ namespace IPSwitcher
             UpdateConfiguration();
         }
 
-        private void toolStripComboBoxConfigs_DropDownClosed(object sender, EventArgs e)
+        void raiseSwitchSelected(string name)
         {
             foreach (var config in _configuration)
             {
-                if (config.Name.CompareTo(toolStripComboBoxConfigs.SelectedText) == 0)
+                if (config.Name.CompareTo(name) == 0)
                 {
                     config.UpdateAdapter();
                 }
 
             }
-       }
+        }
+
+
+        bool _terminated = false;
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _terminated = true;
+            Close();
+            
+            Application.Exit();
+            Application.DoEvents();
+        }
+
+        private void switchToolStripMenuItemSwitchList_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            raiseSwitchSelected(e.ClickedItem.Text);
+        }
 
     }
 }

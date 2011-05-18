@@ -46,7 +46,6 @@
             this.Mask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Gateway = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DNS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripComboBoxConfigs = new System.Windows.Forms.ToolStripComboBox();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -71,17 +70,17 @@
             // 
             // switchToolStripMenuItemSwitchList
             // 
-            this.switchToolStripMenuItemSwitchList.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBoxConfigs});
             this.switchToolStripMenuItemSwitchList.Name = "switchToolStripMenuItemSwitchList";
             this.switchToolStripMenuItemSwitchList.Size = new System.Drawing.Size(152, 22);
             this.switchToolStripMenuItemSwitchList.Text = "Switch";
+            this.switchToolStripMenuItemSwitchList.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.switchToolStripMenuItemSwitchList_DropDownItemClicked);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
             // notifyIcon1
             // 
@@ -185,12 +184,6 @@
             this.DNS.HeaderText = "DNS";
             this.DNS.Name = "DNS";
             // 
-            // toolStripComboBoxConfigs
-            // 
-            this.toolStripComboBoxConfigs.Name = "toolStripComboBoxConfigs";
-            this.toolStripComboBoxConfigs.Size = new System.Drawing.Size(121, 23);
-            this.toolStripComboBoxConfigs.DropDownClosed += new System.EventHandler(this.toolStripComboBoxConfigs_DropDownClosed);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,7 +221,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Mask;
         private System.Windows.Forms.DataGridViewTextBoxColumn Gateway;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNS;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxConfigs;
     }
 }
 

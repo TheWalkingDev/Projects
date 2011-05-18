@@ -27,7 +27,8 @@ namespace IPSwitcher.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>-Name LAN -Adapter LanAdapter  -IpAddress 10.0.0.65 -Mask 255.255.255.0 -Gateway 10.0.0.25 -DNS 10.0.0.20</string>
+  <string>-Name Gaming -AdapterName RTL8167 -IpAddress 10.0.0.65 -Mask 255.255.255.0 -Gateway 10.0.0.25 -DNS 10.0.0.20</string>
+  <string>-Name Browsing -AdapterName RTL8167 -IpAddress 10.0.0.65 -Mask 255.255.255.0 -Gateway 10.0.0.20 -DNS 10.0.0.20</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ConfigurationStrings {
             get {
