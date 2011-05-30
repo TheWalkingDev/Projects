@@ -18,12 +18,12 @@ namespace PyPad
             InitializeComponent();
             Text = "PyPad";
             _pypad = new UcPyPad();
-            _pypad.SetVariable("HostForm", this);
+            _pypad.ActiveWindow.SetVariable("HostForm", this);
             _pypad.Dock = DockStyle.Fill;
             Controls.Add(_pypad);
             Width = 800;
             Height = 600;
-            _pypad.RunScript("");
+            _pypad.ActiveWindow. RunScript("");
         }
     }
 }
