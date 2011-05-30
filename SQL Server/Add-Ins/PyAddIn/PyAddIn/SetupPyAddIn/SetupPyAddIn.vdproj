@@ -1288,7 +1288,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IronPythonAddIn"
         "ProductCode" = "8:{7628D192-C2E0-401D-AAE3-90A61462680A}"
-        "PackageCode" = "8:{905D29C7-AAA5-462C-ACAF-AAD4B244340C}"
+        "PackageCode" = "8:{B4DF7612-0B08-4E92-A00C-BACC429DFA68}"
         "UpgradeCode" = "8:{3A34AD49-2000-41CD-8070-C3BB1C27AF4A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1311,7 +1311,7 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:"
+        "PostBuildEvent" = "8:copy \"$(BuiltOuputPath)\" z:\\Dev\\Andre\\Blogs\\2011\\GitHub\\Projects\\Releases\\IronPythonAddIn\\SetupPyAddIn.msi"
         "RunPostBuildEvent" = "3:0"
         }
         "Registry"
