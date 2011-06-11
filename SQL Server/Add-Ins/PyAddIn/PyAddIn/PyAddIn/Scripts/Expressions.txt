@@ -1,1 +1,3 @@
-﻿prints,PRINT(.*)
+﻿prints,PRINT([^\r\n]+)
+SelectStatements,SELECT.*?FROM[\s]+[\[]?([#\w\.]+)[\]]?
+InsertStatements,INSERT[\s]+INTO[#\s]+([\w\[\]\.]+)

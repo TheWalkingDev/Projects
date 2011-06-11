@@ -118,6 +118,9 @@
     <Content Include="Icons\SqlNavIndex.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\SqlNavNavigate.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\SqlNavRegion.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -140,7 +143,9 @@
     <Content Include="Scripts\DocumentScanner.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Expressions.txt" />
+    <Content Include="Scripts\Expressions.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\SimpleEditList.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -157,6 +162,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\SSMSProcedureNavigator.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\SSMSSampleCommand.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\SSMSTest.py" />
@@ -184,7 +192,8 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>copy "Scripts\*.py" "c:\Program Files (x86)\ACSR\IronPythonAddIn\Scripts\"
-copy "Icons\*.ico"  "c:\Program Files (x86)\ACSR\IronPythonAddIn\Icons\"</PostBuildEvent>
+copy "Icons\*.ico"  "c:\Program Files (x86)\ACSR\IronPythonAddIn\Icons\"
+copy "Scripts\*.txt"  "c:\Program Files (x86)\ACSR\IronPythonAddIn\Scripts\"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions />
   <Target Name="AfterBuild">

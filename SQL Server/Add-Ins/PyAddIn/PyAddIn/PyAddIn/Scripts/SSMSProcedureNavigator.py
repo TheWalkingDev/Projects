@@ -24,20 +24,23 @@ class CommandSQLNavigator(CommandHandler):
     def _smartTreeViewErrorHandler(self, message):
         self.ShowMessage(message)
 
-
+    def AddNavigatableNode(self, parentNode, nodeName, window, table, imageIndex=-1):
+        nodeEvents = NodeEvents()
+        nodeEvents.SetDoubleClickHandler(self.handleTreeViewNodeDoubleClick)
+        node = self._treeView.FindOrCreateNode(parentNode, nodeName, nodeEvents, TreeContext(window, table))
+        node.SetImageIndex(imageIndex)
+        return node
+    
     def populateGroup(self, generator, window, treeView, parentNode, imageIndex=-1):
         treeView.BeginPopulateNode(parentNode)
         try:
             for table in generator():
-                nodeEvents = NodeEvents()
-                nodeEvents.SetDoubleClickHandler(self.handleTreeViewNodeDoubleClick)
                 nodeName = ""
                 if table.IsAbsolute():
                     nodeName = "%s (#%d)" % (table.Text, table.LineNumber)
                 else:
                     nodeName = "%s (%d)" % (table.Text, table.LineNumber)
-                node = treeView.FindOrCreateNode(parentNode, nodeName, nodeEvents, TreeContext(window, table))
-                node.SetImageIndex(imageIndex)
+                self.AddNavigatableNode(parentNode, nodeName, window, table, imageIndex)
         finally:
             treeView.EndPopulateNode(parentNode)
         
@@ -66,7 +69,8 @@ class CommandSQLNavigator(CommandHandler):
                         categoryNode = self.AddCategoryNode(parentNode, 
                             m.Groups[1].ToString(), activeWindow)
                         document = DocumentScanner(text)
-                        self.populateGroup(lambda: document.MatchLinesSortedDefault(m.Groups[2].ToString()), 
+                        #self.populateGroup(lambda: document.MatchLinesSortedDefault(m.Groups[2].ToString()), 
+                        self.populateGroup(lambda: document.SortList(document.MatchAbsolute(m.Groups[2].ToString(), document.GetEvaluatorFirstGroup())), 
                             activeWindow, treeView, categoryNode)
         except System.Exception, e:
             InspectWithPyPad(globals(), locals())
@@ -95,7 +99,7 @@ class CommandSQLNavigator(CommandHandler):
         if self.isTextWindow(activeWindow):                    
             activeWindow.Selection.SelectAll()
             text = activeWindow.Selection.Text                    
-            
+            self.AddNavigatableNode(mainNode, "StartOfDocument", activeWindow, TextContext("Start", 1), self._iconSqlNavNavigate.ImageIndex)
             tempTableNode = self.AddCategoryNode(mainNode, "Temp Tables", activeWindow)
             #tempTableNode.SetImageIndex(self._iconSqlNavTempTable.ImageIndex)
             
@@ -125,10 +129,13 @@ class CommandSQLNavigator(CommandHandler):
         return window and window.Selection and (self.getWindowDisplayName(window) <> "SQL Navigator")
     
     def getWindowDisplayName(self, window):
+        """
         if window.Document:
             return window.Document()
         else:
             return window.Caption
+        """
+        return window.Caption
     
     def CreateWindowNode(self, parent, activeWindow):
         return self._treeView.FindOrCreateNode(parent, 
@@ -226,18 +233,22 @@ class CommandSQLNavigator(CommandHandler):
     def GetIconFileName(self, fileName):
         return Path.Combine(self.GetWorkingDirectory(), "Icons\%s" % fileName)
     
+    def AddIcon(self, name):
+        return self._treeView.AddIcon(name, self.GetIconFileName(name + ".ico"))
+    
     def CreateNavigator(self):
         try:
             activeWindow = self._DTE.ActiveWindow
             self._lockObject = self
             self._form = Panel()
             self._treeView = SmartTreeView()
-            self._iconSqlDefault = self._treeView.AddIcon("SqlNavDefault", self.GetIconFileName("SqlNavDefault.ico"))
-            self._iconSqlNavIndex = self._treeView.AddIcon("SqlNavIndex", self.GetIconFileName("SqlNavIndex.ico"))
-            self._iconSqlNavTempTable = self._treeView.AddIcon("SqlNavTempTable", self.GetIconFileName("SqlNavTempTable.ico"))
-            self._iconSqlNavRegion = self._treeView.AddIcon("SqlNavRegion", self.GetIconFileName("SqlNavRegion.ico"))
-            self._iconSqlNavWindow = self._treeView.AddIcon("SqlNavWindow", self.GetIconFileName("SqlNavWindow.ico"))
-            self._iconSqlNavVariable = self._treeView.AddIcon("SqlNavVariable", self.GetIconFileName("SqlNavVariable.ico"))
+            self._iconSqlDefault = self.AddIcon("SqlNavDefault")
+            self._iconSqlNavIndex = self.AddIcon("SqlNavIndex")
+            self._iconSqlNavTempTable = self.AddIcon("SqlNavTempTable")
+            self._iconSqlNavRegion = self.AddIcon("SqlNavRegion")
+            self._iconSqlNavWindow = self.AddIcon("SqlNavWindow")
+            self._iconSqlNavVariable = self.AddIcon("SqlNavVariable")
+            self._iconSqlNavNavigate = self.AddIcon("SqlNavNavigate")
 
             
             self._treeView.SetErrorHandler(self._smartTreeViewErrorHandler)

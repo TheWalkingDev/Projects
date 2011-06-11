@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
@@ -24,7 +23,7 @@ namespace PortListener
             server.Start();
             server.BeginAcceptSocket(new AsyncCallback(server_onAccept), server);
 
-            Console.WriteLine("Press any key to exit");
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
 

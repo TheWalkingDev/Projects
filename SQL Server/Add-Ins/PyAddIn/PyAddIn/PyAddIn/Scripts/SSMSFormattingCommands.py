@@ -1,4 +1,5 @@
-﻿import clr
+﻿GInitials = "ADP"
+import clr
 clr.AddReference("System.Windows.Forms")
 from SSMSCore import *
 from SimpleEditList import *
@@ -66,7 +67,7 @@ class CommandAddProcedureComment(CommandHandler):
                 i(controlDescription.Text+"\r\n")
                 i("History:\r\n")
                 i(controlHistory.Text + "\r\n")
-                i("%s: %s: %s%s" % (String.Format("{0:yyyy-MM-dd}", DateTime.Now), "AS", controlComment.Text, "\r\n"))
+                i("%s: %s: %s%s" % (String.Format("{0:yyyy-MM-dd}", DateTime.Now), GInitials, controlComment.Text, "\r\n"))
                 i("***************************************************************/\r\n")
         except System.Exception, e:
             InspectWithPyPad(globals(), locals())

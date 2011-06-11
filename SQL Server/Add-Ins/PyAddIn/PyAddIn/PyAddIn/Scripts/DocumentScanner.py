@@ -144,10 +144,9 @@ class DocumentScanner:
             
             #ctx = TextContext(textPortion, self.MapCharIndexToLineNumber(m.Groups[1].Index))
             ctx = TextContext(textPortion, self.MapCharIndexToLineNumber(indexEvaluator(m)))
-            #ctx.SetAbsolute()
-            
-            m = m.NextMatch()
+            #ctx.SetAbsolute()            
             yield ctx
+            m = m.NextMatch()
 
 
     def GetTempTables(self):
